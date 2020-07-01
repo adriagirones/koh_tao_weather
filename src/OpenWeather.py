@@ -1,18 +1,17 @@
-class OpenWeather:
+from src.Weather import Weather
 
-    def __init__(self):
-        self.API = ''
+
+class OpenWeather(Weather):
+
+    def __init__(self, api: str):
+        self.url = f'api.openweathermap.org/data/2.5/weather?'
         self.city_name = ''
         self.city_id = ''
-        self.lon = ''
         self.lat = ''
+        self.lon = ''
         self.country = ''
         self.zip_code = ''
-        self.url_city_name = f'api.openweathermap.org/data/2.5/weather?' \
-                             f'q={self.city_name},{self.country}&appid={self.API}'
-        self.url__city_id = f'api.openweathermap.org/data/2.5/weather?' \
-                            f'id={self.city_id}&appid={self.API}'
-        self.url_geographic_coordinates = f'api.openweathermap.org/data/2.5/weather?' \
-                                          f'lat={self.lat}&lon={self.lon}&appid={self.API}'
-        self.url_zip_code = f'api.openweathermap.org/data/2.5/weather?' \
-                            f'zip={self.zip_code},{self.country}&appid={self.API}'
+        self.url_city_name = self.url + f'q={self.city_name},{self.country}&appid={self.API}'
+        self.url__city_id = self.url = f'id={self.city_id}&appid={self.API}'
+        self.url_geographic_coordinates = self.url + f'lat={self.lat}&lon={self.lon}&appid={self.API}'
+        self.url_zip_code = self.url + f'zip={self.zip_code},{self.country}&appid={self.API}'
