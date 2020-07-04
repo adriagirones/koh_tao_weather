@@ -40,7 +40,6 @@ class OpenWeather:
         response = requests.get(f"{self.url}?lat={self.lat}&lon={self.lon}&appid={self.api}").json()
 
         self.temperature = kelvin_to_celcius(float(response['main']['temp']))
-        self.visibility = response['visibility']
         self.pressure = response['main']['pressure']
         self.humidity = response['main']['humidity']
         self.wind = f"Speed: {response['wind']['speed']}, degrees: {response['wind']['deg']}"
@@ -50,7 +49,6 @@ class OpenWeather:
 
     def __repr__(self):
         return f"Temperature: {self.temperature} \n" \
-               f"Visibility: {self.visibility} \n" \
                f"Pressure: {self.pressure} \n" \
                f"Humidity: {self.humidity} \n" \
                f"Wind: {self.wind} \n" \

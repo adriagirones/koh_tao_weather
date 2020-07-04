@@ -15,9 +15,5 @@ class Weather(ABC):
         pass
 
     @abstractmethod
-    def get_visability(self):
-        pass
-
-    @abstractmethod
     def get_weather(self):
         pass
