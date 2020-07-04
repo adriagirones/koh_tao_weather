@@ -21,8 +21,7 @@ class OpenWeather(Weather):
         :param coordinates: tuple
         :return: weather: str
         """
-        self.lat = coordinates.__getitem__(0)
-        self.lon = coordinates.__getitem__(1)
+        self.lat, self.lon = coordinates[0], coordinates[1]
         url_geographic_coordinates = self.url + f'lat={self.lat}&lon={self.lon}&appid={self.api}'
         response = requests.get(url_geographic_coordinates).json()
         self.temperature = response['main']['temp']
