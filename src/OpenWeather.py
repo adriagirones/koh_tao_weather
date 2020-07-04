@@ -32,9 +32,9 @@ class OpenWeather(Weather):
         self.wind = f"Speed: {response['wind']['speed']}, degrees: response['wind']['deg']"
         self.sunrise = response['sys']['sunrise']
         self.sunrise = response['sys']['sunset']
-        weateher = f"{response['weather'][0]['main']}, {response['weather'][0]['description']}"
+        weather = f"{response['weather'][0]['main']}, {response['weather'][0]['description']}"
 
-        return weateher
+        return weather
 
 
 if __name__ == '__main__':
