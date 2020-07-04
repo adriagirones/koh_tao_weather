@@ -15,4 +15,7 @@ class OpenWeather(Weather):
         self.city_name, self.country, self.location, self.country, self.wind_information = str
         self.city_id, self.zip_code, self.visibility, self.humidity, self.pressure = int
         self.sunrise, self.sunrise = datetime
-        self.lat, self.lon, self.temperature = float # TODO: convert far to cel
+        self.lat, self.lon, self.temperature = float  # TODO: convert far to cel
+
+    def get_weather(self, coordinates: tuple) -> str:
+        pass
