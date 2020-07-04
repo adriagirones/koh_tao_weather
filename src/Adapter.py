@@ -14,7 +14,7 @@ class Adapter(Weather, ABC):
         self._CC = ClimaCell('N9sVmSxG9QpcpJ7xidHgq9rkdSwjGDB1', coordinates)
 
     def get_temperature(self):
-        return numpy.mean(self._OP.temperature)
+        return numpy.mean([self._OP.temperature, self._CC.temp])
 
     def get_wind(self):
         pass
