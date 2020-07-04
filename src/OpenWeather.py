@@ -21,14 +21,17 @@ class OpenWeather:
 
     :return: __repr__ : str
     For example, we can get the info like this.
-    Temperature: 29.989999999999952
-    Visibility: 10000
-    Pressure: 1007
-    Humidity: 74
-    Wind: Speed: 1.26, degrees: 176
+    Temperature: 28.989999999999952
+    Pressure: 1008
+    Humidity: 79
+    Wind:
+       Speed: 1.67
+       Degrees: 241
     Sunrise: 1593817439
     Sunset: 1593863147
-    Weather: Clouds, few clouds
+    Weather:
+       Main: Clouds
+       Description: few clouds
     """
 
     def __init__(self, api: str, coordinates: tuple):
@@ -42,19 +45,26 @@ class OpenWeather:
         self.temperature = kelvin_to_celcius(float(response['main']['temp']))
         self.pressure = response['main']['pressure']
         self.humidity = response['main']['humidity']
-        self.wind = f"Speed: {response['wind']['speed']}, degrees: {response['wind']['deg']}"
+        self.wind_speed = response['wind']['speed']
+        self.wind_degrees = response['wind']['deg']
         self.sunrise = response['sys']['sunrise']
         self.sunset = response['sys']['sunset']
-        self.weather = f"{response['weather'][0]['main']}, {response['weather'][0]['description']}"
+        self.weather_main = response['weather'][0]['main']
+        self.weather_description = response['weather'][0]['description']
 
     def __repr__(self):
         return f"Temperature: {self.temperature} \n" \
                f"Pressure: {self.pressure} \n" \
                f"Humidity: {self.humidity} \n" \
-               f"Wind: {self.wind} \n" \
+               f"Wind: \n" \
+               f"   Speed: {self.wind_speed} \n" \
+               f"   Degrees: {self.wind_degrees} \n" \
                f"Sunrise: {self.sunrise} \n" \
                f"Sunset: {self.sunset} \n" \
-               f"Weather: {self.weather}"
+               f"Weather:  \n" \
+               f"   Main: {self.weather_main} \n" \
+               f"   Description: {self.weather_description} \n"
+
 
 
 if __name__ == '__main__':
