@@ -13,7 +13,7 @@ class OpenWeather(Weather):
         self.visibility = self.humidity = self.pressure = int
         self.sunrise = self.sunrise = datetime
         self.temperature = float  # TODO: convert far to cel
-        self.url = f'https://api.openweathermap.org/data/2.5/weather?'
+        self.url = f'https://api.openweathermap.org/data/2.5/weather'
 
     def get_weather(self, coordinates: tuple) -> str:
         """
@@ -22,8 +22,7 @@ class OpenWeather(Weather):
         :return: weather: str
         """
         self.lat, self.lon = coordinates[0], coordinates[1]
-        url_geographic_coordinates = self.url + f'lat={self.lat}&lon={self.lon}&appid={self.api}'
-        response = requests.get(url_geographic_coordinates).json()
+        response = requests.get(f'{self.url}?lat={self.lat}&lon={self.lon}&appid={self.api}').json()
         self.temperature = response['main']['temp']
         self.visibility = response['visibility']
         self.pressure = response['main']['pressure']
