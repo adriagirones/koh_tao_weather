@@ -7,5 +7,13 @@ class Weather(ABC):
         self.url = ''
 
     @abstractmethod
-    def get_weather(self, coordinates: tuple) -> str:
+    def get_temperature(self):
+        pass
+
+    @abstractmethod
+    def get_wind(self):
+        pass
+
+    @abstractmethod
+    def get_weather(self):
         pass

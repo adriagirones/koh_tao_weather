@@ -1,44 +1,72 @@
-import datetime
-
 import requests
 
-from src.Weather import Weather
+
+def kelvin_to_celcius(temp: float) -> float:
+    """
+    Return the temperature degrees in celcius
+
+    :param temp: float
+
+    :return: float
+    """
+    return temp - 273.16
 
 
-class OpenWeather(Weather):
+class OpenWeather:
+    """
+    Does a request to the API to get the current weather from a coordinates that you send.
 
-    def __init__(self, api: str):
+
+    :param: api: str, coordinates: tuple
+
+    :return: __repr__ : str
+    For example, we can get the info like this.
+    Temperature: 28.989999999999952
+    Pressure: 1008
+    Humidity: 79
+    Wind:
+       Speed: 1.67
+       Degrees: 241
+    Sunrise: 1593817439
+    Sunset: 1593863147
+    Weather:
+       Main: Clouds
+       Description: few clouds
+    """
+
+    def __init__(self, api: str, coordinates: tuple):
         self.api = api
-        self.lat = self.lon = self.wind = str
-        self.visibility = self.humidity = self.pressure = int
-        self.sunrise = self.sunrise = datetime
-        self.temperature = float  # TODO: convert far to cel
         self.url = f'https://api.openweathermap.org/data/2.5/weather'
 
-    def get_weather(self, coordinates: tuple) -> str:
-        """
-        Do API call to get the weather from a concrete coordinates
-
-        :param:
-        coordinates: tuple
-
-        :return:
-        weather: str
-        """
         self.lat, self.lon = coordinates
+
         response = requests.get(f"{self.url}?lat={self.lat}&lon={self.lon}&appid={self.api}").json()
 
-        self.temperature = response['main']['temp']
-        self.visibility = response['visibility']
+        self.temperature = kelvin_to_celcius(float(response['main']['temp']))
         self.pressure = response['main']['pressure']
         self.humidity = response['main']['humidity']
-        self.wind = f"Speed: {response['wind']['speed']}, degrees: response['wind']['deg']"
+        self.wind_speed = response['wind']['speed']
+        self.wind_degrees = response['wind']['deg']
         self.sunrise = response['sys']['sunrise']
-        self.sunrise = response['sys']['sunset']
+        self.sunset = response['sys']['sunset']
+        self.weather_main = response['weather'][0]['main']
+        self.weather_description = response['weather'][0]['description']
 
-        return f"{response['weather'][0]['main']}, {response['weather'][0]['description']}"
+    def __repr__(self):
+        return f"Temperature: {self.temperature} \n" \
+               f"Pressure: {self.pressure} \n" \
+               f"Humidity: {self.humidity} \n" \
+               f"Wind: \n" \
+               f"   Speed: {self.wind_speed} \n" \
+               f"   Degrees: {self.wind_degrees} \n" \
+               f"Sunrise: {self.sunrise} \n" \
+               f"Sunset: {self.sunset} \n" \
+               f"Weather:  \n" \
+               f"   Main: {self.weather_main} \n" \
+               f"   Description: {self.weather_description} \n"
+
 
 
 if __name__ == '__main__':
-    OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243')
-    info = OP.get_weather(('10.100051', '99.840210'))
+    OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243', ('10.100051', '99.840210'))
+    print(OP)
