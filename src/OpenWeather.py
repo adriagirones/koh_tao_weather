@@ -18,11 +18,16 @@ class OpenWeather(Weather):
     def get_weather(self, coordinates: tuple) -> str:
         """
         Do API call to get the weather from a concrete coordinates
-        :param coordinates: tuple
-        :return: weather: str
+
+        :param:
+        coordinates: tuple
+
+        :return:
+        weather: str
         """
-        self.lat, self.lon = coordinates[0], coordinates[1]
         response = requests.get(f'{self.url}?lat={self.lat}&lon={self.lon}&appid={self.api}').json()
+
+        self.lat, self.lon = coordinates[0], coordinates[1]
         self.temperature = response['main']['temp']
         self.visibility = response['visibility']
         self.pressure = response['main']['pressure']
@@ -30,9 +35,8 @@ class OpenWeather(Weather):
         self.wind = f"Speed: {response['wind']['speed']}, degrees: response['wind']['deg']"
         self.sunrise = response['sys']['sunrise']
         self.sunrise = response['sys']['sunset']
-        weather = f"{response['weather'][0]['main']}, {response['weather'][0]['description']}"
 
-        return weather
+        return f"{response['weather'][0]['main']}, {response['weather'][0]['description']}"
 
 
 if __name__ == '__main__':
