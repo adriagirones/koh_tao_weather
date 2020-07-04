@@ -33,7 +33,16 @@ class ClimaCell(ClimacellApiClient):
         self.__dict__.update(data)
 
     def __repr__(self):
-        pass
+        return f"Temperature: {self.temp} \n" \
+               f"Humidity: {self.humidity} \n" \
+               f"Wind: \n" \
+               f"   Speed: {self.wind_speed} \n" \
+               f"   Gust: {self.wind_gust} \n" \
+               f"   Direction: {self.wind_direction} \n" \
+               f"Sunrise: {self.sunrise} \n" \
+               f"Sunset: {self.sunset} \n" \
+               f"Weather:  \n" \
+               f"   Main: {self.weather_code} \n"
 
 
 if __name__ == '__main__':
