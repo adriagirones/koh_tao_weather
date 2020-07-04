@@ -25,7 +25,7 @@ class OpenWeather(Weather):
         :return:
         weather: str
         """
-        response = requests.get(f'{self.url}?lat={self.lat}&lon={self.lon}&appid={self.api}').json()
+        response = requests.get(f"{self.url}?lat={self.lat}&lon={self.lon}&appid={self.api}").json()
 
         self.lat, self.lon = coordinates[0], coordinates[1]
         self.temperature = response['main']['temp']
