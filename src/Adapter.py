@@ -38,6 +38,12 @@ def convert_degrees_compass_direction(degrees: int) -> str:
 
 
 class Adapter(Weather, ABC):
+    """
+    Adapter class for our weather application
+
+    :param
+    coordinates: tuple
+    """
     def __init__(self, coordinates: tuple):
         # koh_tao coordinates = ('10.100051', '99.840210')
         self._OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243', coordinates)
