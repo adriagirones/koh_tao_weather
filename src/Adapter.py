@@ -52,7 +52,13 @@ class Adapter(Weather, ABC):
         """
         return numpy.mean([self._OP.temperature, self._CC.temp])
 
-    def get_wind(self):
+    def get_wind(self) -> str:
+        """
+        Get wind direction, degrees
+
+        :return:
+        wind: str
+        """
         return numpy.mean([self._OP.wind_speed, self._CC.wind_speed]), convert_degrees_compass_direction(
             round(numpy.mean([self._OP.wind_degrees, self._CC.wind_direction]))), numpy.mean(
             [self._OP.wind_degrees, self._CC.wind_direction])
