@@ -21,7 +21,8 @@ class ClimaCell(ClimacellApiClient):
     Weather:
        Main: cloudy
     """
-    def __init__(self, api: str, coordinates: tuple):
+
+    def __init__(self, api: str, coordinates: tuple) -> None:
         super().__init__(api)
         response = super().realtime(lat=coordinates[0], lon=coordinates[1], fields=[
             'temp',
@@ -51,7 +52,7 @@ class ClimaCell(ClimacellApiClient):
         data = {key: response.data().measurements[key].value for key, value in response.data().measurements.items()}
         self.__dict__.update(data)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Temperature: {self.temp} \n" \
                f"Humidity: {self.humidity} \n" \
                f"Wind: \n" \
