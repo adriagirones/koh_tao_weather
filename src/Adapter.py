@@ -21,4 +21,6 @@ class Adapter(Weather, ABC):
         pass
 
     def get_weather(self):
-        pass
+        # TODO: add a list of possible answers
+        # TODO: mainstream 2 to 1 answers
+        return self._OP.weather_main, self._CC.weather_code
