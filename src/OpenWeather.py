@@ -64,8 +64,3 @@ class OpenWeather:
                f"Weather:  \n" \
                f"   Main: {self.weather_main} \n" \
                f"   Description: {self.weather_description} \n"
-
-
-if __name__ == '__main__':
-    OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243', ('10.100051', '99.840210'))
-    print(OP)
