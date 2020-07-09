@@ -1,9 +1,10 @@
-import enum
 from abc import ABC
+
 import numpy
+
+from ClimaCell import ClimaCell
 from OpenWeather import OpenWeather
 from Weather import Weather
-from ClimaCell import ClimaCell
 
 
 def convert_degrees_compass_direction(degrees: int) -> str:
@@ -37,7 +38,6 @@ def convert_degrees_compass_direction(degrees: int) -> str:
 
 
 class Adapter(Weather, ABC):
-
     def __init__(self, coordinates: tuple):
         # koh_tao coordinates = ('10.100051', '99.840210')
         self._OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243', coordinates)
@@ -51,7 +51,12 @@ class Adapter(Weather, ABC):
             round(numpy.mean([self._OP.wind_degrees, self._CC.wind_direction]))), numpy.mean(
             [self._OP.wind_degrees, self._CC.wind_direction])
 
-    def get_weather(self):
-        # TODO: add a list of possible answers
-        # TODO: mainstream 2 to 1 answers
-        return self._OP.weather_main, self._CC.weather_code
+    def get_weather(self) -> str:
+        """
+        Get the current weather conditions
+
+        :return:
+        weather: str
+        """
+        return f"Our sources reveal the weather is {(self._CC.weather_code).replace('_', ' ').lower()} " \
+               f"and thus will have {str.capitalize(self._OP.weather_main).lower()}"
