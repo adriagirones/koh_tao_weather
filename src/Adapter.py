@@ -7,17 +7,24 @@ from ClimaCell import ClimaCell
 
 
 def convert_degrees_compass_direction(degrees):
-    return {
-        range(337.5, 22.5): "N",
-        range(22.5, 67.5): "NE",
-        range(67.5, 112.5): "E",
-        range(112.5, 157.5): "SE",
-        range(157.5, 202.5): "S",
-        range(202.5, 247.5): "SW",
-        range(247.5, 292.5): "W",
-        range(292.5, 337.5): "NW",
+    wind_direction = {
+        "N": range(0, 23),
+        "NE": range(23, 68),
+        "E": range(68, 113),
+        "SE": range(113, 158),
+        "S": range(158, 203),
+        "SW": range(203, 248),
+        "W": range(248, 293),
+        "NW": range(293, 338),
+        "N": range(338, 361)
+    }
 
-    }[degrees]
+    for direction in wind_direction:
+        if degrees in wind_direction[direction]:
+            value = direction
+            break
+
+    return value
 
 
 class Adapter(Weather, ABC):
@@ -32,7 +39,7 @@ class Adapter(Weather, ABC):
 
     def get_wind(self):
         return numpy.mean([self._OP.wind_speed, self._CC.wind_speed]), convert_degrees_compass_direction(
-            numpy.mean([self._OP.wind_degrees, self._CC.wind_direction])), numpy.mean(
+            round(numpy.mean([self._OP.wind_degrees, self._CC.wind_direction]))), numpy.mean(
             [self._OP.wind_degrees, self._CC.wind_direction])
 
     def get_weather(self):
