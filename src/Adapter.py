@@ -49,7 +49,12 @@ class Adapter(Weather, ABC):
         self._CC = ClimaCell('N9sVmSxG9QpcpJ7xidHgq9rkdSwjGDB1', coordinates)
         self.create_dataframe()
 
-    def create_dataframe(self):
+    def create_dataframe(self) -> pd.DataFrame:
+        """
+        Create a pandas dataframe with all the information from all the API
+
+        :return: df: pd.DataFrame
+        """
         data = [
             {'Temperature': self._OP.temperature, 'Wind Speed': self._OP.wind_speed,
              'Wind Direction': f"{convert_degrees_compass_direction(round(self._OP.wind_degrees))}({self._OP.wind_degrees})",
@@ -59,7 +64,7 @@ class Adapter(Weather, ABC):
              'Weather': self._CC.weather_code}
         ]
         df = pd.DataFrame(data, columns=['Temperature', 'Wind Speed', 'Wind Direction', 'Weather'], index=['OW', 'CC'])
-        print(df)
+        return df
 
     def get_temperature(self) -> int:
         """
