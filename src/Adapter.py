@@ -43,7 +43,13 @@ class Adapter(Weather, ABC):
         self._OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243', coordinates)
         self._CC = ClimaCell('N9sVmSxG9QpcpJ7xidHgq9rkdSwjGDB1', coordinates)
 
-    def get_temperature(self):
+    def get_temperature(self) -> int:
+        """
+        Get the current temperature
+
+        :return:
+        temperature: int
+        """
         return numpy.mean([self._OP.temperature, self._CC.temp])
 
     def get_wind(self):
