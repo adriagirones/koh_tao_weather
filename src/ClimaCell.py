@@ -63,7 +63,3 @@ class ClimaCell(ClimacellApiClient):
                f"Sunset: {self.sunset} \n" \
                f"Weather:  \n" \
                f"   Main: {self.weather_code} \n"
-
-
-if __name__ == '__main__':
-    climacell = ClimaCell('N9sVmSxG9QpcpJ7xidHgq9rkdSwjGDB1', ('10.100051', '99.840210'))
