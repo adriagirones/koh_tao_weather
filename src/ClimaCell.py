@@ -46,4 +46,5 @@ class ClimaCell(ClimacellApiClient):
 
 
 if __name__ == '__main__':
-    climacell = ClimaCell('N9sVmSxG9QpcpJ7xidHgq9rkdSwjGDB1', ('10.100051', '99.840210'))
+    climacell = ClimaCell('N9sVmSxG9QpcpJ7xidHgq9rkdSwjGDB1', ('10.100051', '99.840210')).__repr__()
+    print(climacell)
