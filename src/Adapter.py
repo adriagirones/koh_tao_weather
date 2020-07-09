@@ -6,7 +6,16 @@ from Weather import Weather
 from ClimaCell import ClimaCell
 
 
-def convert_degrees_compass_direction(degrees):
+def convert_degrees_compass_direction(degrees: int) -> str:
+    """
+    Changes the wind direction to a compass direction
+
+    :param
+    degrees: int
+
+    :return:
+    compass_direction: str
+    """
     wind_direction = {
         "N": range(0, 23),
         "NE": range(23, 68),
@@ -21,10 +30,10 @@ def convert_degrees_compass_direction(degrees):
 
     for direction in wind_direction:
         if degrees in wind_direction[direction]:
-            value = direction
+            compass_direction = direction
             break
 
-    return value
+    return compass_direction
 
 
 class Adapter(Weather, ABC):
