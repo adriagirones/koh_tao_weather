@@ -1,11 +1,12 @@
 from abc import ABC
-import numpy
-from OpenWeather import OpenWeather
-from Weather import Weather
-from ClimaCell import ClimaCell
-import pandas as pd
 from itertools import chain
 
+import numpy
+import pandas as pd
+
+from ClimaCell import ClimaCell
+from OpenWeather import OpenWeather
+from Weather import Weather
 
 
 def convert_degrees_compass_direction(degrees: int) -> str:
@@ -43,6 +44,7 @@ class Adapter(Weather, ABC):
     :param
     coordinates: tuple
     """
+
     def __init__(self, coordinates: tuple):
         # koh_tao coordinates = ('10.100051', '99.840210')
         self._OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243', coordinates)
