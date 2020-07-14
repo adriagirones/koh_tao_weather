@@ -47,26 +47,8 @@ class Adapter(Weather, ABC):
 
     def __init__(self, coordinates: tuple):
         # koh_tao coordinates = ('10.100051', '99.840210')
-        self._OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243', coordinates)
-        self._CC = ClimaCell('N9sVmSxG9QpcpJ7xidHgq9rkdSwjGDB1', coordinates)
-        self.create_dataframe()
-
-    def create_dataframe(self) -> pd.DataFrame:
-        """
-        Create a pandas dataframe with all the information from all the API
-
-        :return: df: pd.DataFrame
-        """
-        data = [
-            {'Temperature': self._OP.temperature, 'Wind Speed': self._OP.wind_speed,
-             'Wind Direction': f"{convert_degrees_compass_direction(round(self._OP.wind_degrees))}({self._OP.wind_degrees})",
-             'Weather': self._OP.weather_main},
-            {'Temperature': self._CC.temp, 'Wind Speed': self._CC.wind_speed,
-             'Wind Direction': f"{convert_degrees_compass_direction(round(self._CC.wind_direction))}({self._CC.wind_direction})",
-             'Weather': self._CC.weather_code}
-        ]
-        df = pd.DataFrame(data, columns=['Temperature', 'Wind Speed', 'Wind Direction', 'Weather'], index=['OW', 'CC'])
-        return df
+        self.OP = OpenWeather('652661b4d9b718379cbe5cca2f4a0243', coordinates)
+        self.CC = ClimaCell('N9sVmSxG9QpcpJ7xidHgq9rkdSwjGDB1', coordinates)
 
     def get_temperature(self) -> int:
         """
@@ -75,7 +57,7 @@ class Adapter(Weather, ABC):
         :return:
         temperature: int
         """
-        return numpy.mean([self._OP.temperature, self._CC.temp])
+        return numpy.mean([self.OP.temperature, self.CC.temp])
 
     def get_wind(self) -> str:
         """
@@ -84,9 +66,9 @@ class Adapter(Weather, ABC):
         :return:
         wind: str
         """
-        return numpy.mean([self._OP.wind_speed, self._CC.wind_speed]), convert_degrees_compass_direction(
-            round(numpy.mean([self._OP.wind_degrees, self._CC.wind_direction]))), numpy.mean(
-            [self._OP.wind_degrees, self._CC.wind_direction])
+        return numpy.mean([self.OP.wind_speed, self.CC.wind_speed]), convert_degrees_compass_direction(
+            round(numpy.mean([self.OP.wind_degrees, self.CC.wind_direction]))), numpy.mean(
+            [self.OP.wind_degrees, self.CC.wind_direction])
 
     def get_weather(self) -> str:
         """
@@ -95,5 +77,23 @@ class Adapter(Weather, ABC):
         :return:
         weather: str
         """
-        return f"Our sources reveal the weather is {(self._CC.weather_code).replace('_', ' ').lower()} " \
-               f"and thus will have {str.capitalize(self._OP.weather_main).lower()}"
+        return f"Our sources reveal the weather is {(self.CC.weather_code).replace('_', ' ').lower()} " \
+               f"and thus will have {str.capitalize(self.OP.weather_main).lower()}"
+
+
+def create_dataframe(adapter: Adapter) -> pd.DataFrame:
+    """
+    Create a pandas dataframe with all the information from all the API
+
+    :return: df: pd.DataFrame
+    """
+    data = [
+        {'Temperature': adapter.OP.temperature, 'Wind Speed': adapter.OP.wind_speed,
+         'Wind Direction': f"{convert_degrees_compass_direction(round(adapter.OP.wind_degrees))}({adapter.OP.wind_degrees})",
+         'Weather': adapter.OP.weather_main},
+        {'Temperature': adapter.CC.temp, 'Wind Speed': adapter.CC.wind_speed,
+         'Wind Direction': f"{convert_degrees_compass_direction(round(adapter.CC.wind_direction))}({adapter.CC.wind_direction})",
+         'Weather': adapter.CC.weather_code}
+    ]
+    df = pd.DataFrame(data, columns=['Temperature', 'Wind Speed', 'Wind Direction', 'Weather'], index=['OW', 'CC'])
+    return df
