@@ -9,34 +9,6 @@ from OpenWeather import OpenWeather
 from Weather import Weather
 
 
-def convert_degrees_compass_direction(degrees: int) -> str:
-    """
-    Changes the wind direction to a compass direction
-
-    :param
-    degrees: int
-
-    :return:
-    compass_direction: str
-    """
-    wind_direction = {
-        "N": chain(range(0, 23), range(338, 361)),
-        "NE": range(23, 68),
-        "E": range(68, 113),
-        "SE": range(113, 158),
-        "S": range(158, 203),
-        "SW": range(203, 248),
-        "W": range(248, 293),
-        "NW": range(293, 338)
-    }
-    for direction in wind_direction:
-        if degrees in wind_direction[direction]:
-            compass_direction = direction
-            break
-
-    return compass_direction
-
-
 class Adapter(Weather, ABC):
     """
     Adapter class for our weather application
@@ -81,6 +53,31 @@ class Adapter(Weather, ABC):
                f"and thus will have {str.capitalize(self.OP.weather_main).lower()}"
 
 
+def convert_degrees_compass_direction(degrees: int) -> str:
+    """
+    Changes the wind direction to a compass direction
+
+    :param
+    degrees: int
+
+    :return:
+    compass_direction: str
+    """
+    wind_direction = {
+        "N": chain(range(0, 23), range(338, 361)),
+        "NE": range(23, 68),
+        "E": range(68, 113),
+        "SE": range(113, 158),
+        "S": range(158, 203),
+        "SW": range(203, 248),
+        "W": range(248, 293),
+        "NW": range(293, 338)
+    }
+    for direction in wind_direction:
+        if degrees in wind_direction[direction]:
+            return direction
+
+
 def create_dataframe(adapter: Adapter) -> pd.DataFrame:
     """
     Create a pandas dataframe with all the information from all the API
@@ -97,3 +94,7 @@ def create_dataframe(adapter: Adapter) -> pd.DataFrame:
     ]
     df = pd.DataFrame(data, columns=['Temperature', 'Wind Speed', 'Wind Direction', 'Weather'], index=['OW', 'CC'])
     return df
+
+
+def create_plot(frame: pd.DataFrame) -> pd.DataFrame.plot:
+    return frame.plot()
