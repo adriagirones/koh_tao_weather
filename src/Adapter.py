@@ -97,4 +97,5 @@ def create_dataframe(adapter: Adapter) -> pd.DataFrame:
 
 
 def create_plot(frame: pd.DataFrame) -> pd.DataFrame.plot:
-    return frame.plot()
+    return frame.plot.bar(title="Best graph ever")
+
