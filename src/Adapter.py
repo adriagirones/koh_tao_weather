@@ -82,7 +82,11 @@ def create_dataframe(adapter: Adapter) -> pd.DataFrame:
     """
     Create a pandas dataframe with all the information from all the API
 
-    :return: df: pd.DataFrame
+    :param
+    adapter: Adapter
+
+    :return
+    df: pd.DataFrame
     """
     data = [
         {'Temperature': adapter.OP.temperature, 'Wind Speed': adapter.OP.wind_speed,
@@ -97,5 +101,13 @@ def create_dataframe(adapter: Adapter) -> pd.DataFrame:
 
 
 def create_plot(frame: pd.DataFrame) -> pd.DataFrame.plot:
-    return frame.plot.bar(title="Best graph ever")
+    """
+    Create a graphical plot of data in a DataFrame.
 
+    :param
+    frame: pandas.DataFrame
+
+    :return:
+    plot: pandas.DataFrame.plot.bar
+    """
+    frame.plot.bar(title="Best graph ever")
