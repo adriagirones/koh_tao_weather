@@ -1,6 +1,6 @@
 # Koh Tao Weather
 
-## This app calculates all the data needed to plan a dive
+## This app calculates all the data needed about a location weather
 
 _**What we did in this project**_
 
